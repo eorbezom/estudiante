@@ -23,12 +23,15 @@ public class StudentController {
     private ICourseRepository courseRepository;
 
     private List<Course> coursesList = new ArrayList<>();
+    
+    
 
     public StudentController(StudentService studentService, ICourseRepository courseRepository) {
         this.studentService = studentService;
         this.courseRepository = courseRepository;
         
         this.coursesList = this.courseRepository.findAllSortByName();
+        System.out.println("=== Constructor: Cursos cargados: " + this.coursesList.size() + " ===");
     }
 
 
@@ -49,6 +52,10 @@ public class StudentController {
         
         // este objeto Student almacenara los valores 
         Student student = new Student();
+     // ⬇️ AGREGA ESTAS 3 LÍNEAS AQUÍ ⬇️
+        this.coursesList = this.courseRepository.findAllSortByName();
+        System.out.println("=== Formulario: Cursos disponibles: " + coursesList.size() + " ===");
+        coursesList.forEach(course -> System.out.println("  - " + course.getName()));
        
         model.addAttribute("student", student);
         model.addAttribute("coursesList", coursesList);
@@ -58,6 +65,10 @@ public class StudentController {
     
     @PostMapping("/students")
     public String saveStudent(@ModelAttribute("student") Student student) {
+    	// ⬇️ AGREGA ESTAS LÍNEAS AQUÍ ⬇️
+        System.out.println("=== Guardando: " + student.getFirstName() + " " + student.getLastName());
+        System.out.println("Cursos seleccionados: " + (student.getCourses() != null ? student.getCourses().size() : 0));
+    	
         studentService.saveStudent(student);
         return "redirect:/students";
     }
@@ -65,6 +76,9 @@ public class StudentController {
     @GetMapping("/students/edit/{id}")
     public String editStudentForm(@PathVariable Long id, Model model) {
         Student st = studentService.getStudentById(id);
+        
+    
+        this.coursesList = this.courseRepository.findAllSortByName();
         
         model.addAttribute("student", st);
         model.addAttribute("coursesList", coursesList);

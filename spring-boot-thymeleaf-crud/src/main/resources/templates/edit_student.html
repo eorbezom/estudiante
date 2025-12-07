@@ -30,35 +30,35 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-                    <h1 class = "text-center"> Edit Student </h1>
+                    <h1 class = "text-center"> Edita Estudente </h1>
                     <div class="card-body">
                     <form th:action="@{/students/{id} (id=${student.id})}" th:object="${student}" method="POST">
                         <div class="form-group">
-                            <label>Student First Name</label>
+                            <label>Nombre</label>
                             <input type="text" name="firstName" th:field="*{firstName}"
                                    class="form-control"
-                                   placeholder="Enter Student First Name" />
+                                   placeholder="picolo" />
                         </div>
                         <div class="form-group">
-                            <label>Student Last Name</label>
+                            <label>Aellidos</label>
                             <input type="text" name="lastName" th:field="*{lastName}"
                                    class="form-control"
-                                   placeholder="Enter Student Last Name" />
+                                   placeholder="gusano" />
                         </div>                        
                         <div class="form-group">
-                            <label>Student Email</label>
+                            <label>Correo</label>
                             <input type="text" name="email" th:field="*{email}"
                                    class="form-control"
-                                   placeholder="Enter Student Email" />
+                                   placeholder="picolo@gmail.com" />
                         </div> 
                         <div class="form-group">
-                            <label>Courses</label>
+                            <label>Coursos</label>
                             <select th:field="${student.courses}" name="courses" class="form-control" multiple="true">
                                 <option th:each="course :${coursesList}" th:value="${course.id}" th:text="${course.name}" />
                             </select>
                         </div>                          
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
                         </div>
                             
                     </form>
